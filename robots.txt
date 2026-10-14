@@ -1,2 +1,3 @@
 User-agent: *
-Allow: /
+Allow: /FABIO-RA-ES/
+Sitemap: https://jinsantoswebstudio.github.io/FABIO-RA-ES/sitemap.xml
