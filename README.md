@@ -1,93 +1,45 @@
-# Fábio Rações Itaipuaçu — Site pronto para GitHub
+# Fábio Rações Itaipuaçu — SITE CORRIGIDO PARA GITHUB PAGES
 
-Site responsivo em **React + Vite** com vitrine, catálogo demonstrativo e lista de consulta pelo WhatsApp.
+## Corrigido: site branco / tela em branco
 
-## Publicar no GitHub Pages (passo a passo)
+Este ZIP contém um site **já compilado**. Não é necessário instalar Node.js, Vite ou npm para publicar.
+Os arquivos `index.html`, `assets/` e `images/` **já estão prontos**. Ao abrir a página inicial,
+o conteúdo do site será mostrado. Os links internos usam endereços `#/produtos`, `#/entrega`, etc.
+para funcionar também quando a página for atualizada.
 
-1. Crie um **repositório público** no [GitHub](https://github.com/new), preferencialmente com o nome `fabio-racoes-site`. Não marque a opção de criar README ou `.gitignore` — eles já estão neste projeto.
-2. Extraia este ZIP. Envie **os arquivos e pastas de dentro do ZIP para a raiz do repositório** (inclusive a pasta oculta `.github`). No GitHub: **Add file → Upload files → Commit changes**. Alternativamente, use Git no terminal (veja abaixo).
-3. Vá em **Settings → Pages → Build and deployment** e selecione **Source: GitHub Actions**. O repositório deve permitir GitHub Actions.
-4. Abra a aba **Actions**: o fluxo **Publicar site no GitHub Pages** executa a compilação e publica o site a cada alteração na branch `main`.
-5. Depois que o fluxo terminar com sucesso, o endereço será `https://SEU_USUARIO.github.io/fabio-racoes-site/` (substitua usuário e repositório pelos nomes reais).
+### Publicar no GitHub (substituir versão anterior)
 
-**Importante:** a pasta `.github/workflows/` deve aparecer no repositório. Se o arquivo estiver oculto ao descompactar, habilite a exibição de arquivos ocultos. O site não é publicado apenas ao enviar o ZIP: é necessário **extrair os arquivos** e seguir as etapas.
+1. Extraia este ZIP no computador. **Não envie o ZIP fechado**: envie os arquivos de dentro dele.
+2. Abra o repositório do seu site no GitHub; remova da raiz os arquivos antigos do site que conflitarem (principalmente `index.html`, `assets/`, `images/` e `.github/workflows/deploy.yml`).
+3. Envie os **arquivos e pastas da raiz desta pasta** pelo menu **Add file > Upload files**. Garanta que `index.html` está na raiz e que `assets/` e `images/` aparecem no repositório. Envie também `.github/workflows/deploy.yml` para publicação automática.
+4. Em **Settings > Pages**, escolha **GitHub Actions** em *Build and deployment > Source*.
+5. Abra **Actions** e confira a conclusão da execução **Publicar site sem compilação**.
+6. Acesse a URL indicada em **Settings > Pages**, que costuma ser `https://SEU_USUARIO.github.io/NOME_DO_REPOSITORIO/`.
 
-### Alternativa: publicar com Git pelo terminal
+#### Alternativa: publicar pela branch (sem Actions)
 
-Na pasta extraída:
+Em **Settings > Pages**, escolha **Deploy from a branch**, selecione a branch `main` (ou `master`), pasta `/(root)`, e **Save**. Este ZIP já contém o arquivo `index.html` pronto na raiz.
 
-```bash
-git init
-git add .
-git commit -m "Publicar site Fábio Rações"
-git branch -M main
-git remote add origin https://github.com/SEU_USUARIO/fabio-racoes-site.git
-git push -u origin main
-```
+### Não publique o projeto antigo em vez deste
 
-Substitua `SEU_USUARIO` e `fabio-racoes-site` pelos identificadores do repositório que criou. Se já existir um repositório inicializado, adapte os comandos conforme necessário.
+Se enviar o `index.html` da versão React/Vite que contém `src="/src/main.jsx"`, ele **não funciona diretamente** no GitHub Pages e pode produzir tela branca. O arquivo `index.html` neste ZIP carrega o pacote compilado relativo `./assets/` e tem um aviso de contingência caso a página não carregue.
 
-## Rodar no computador
+### O que foi corrigido
 
-Instale o **Node.js 22** ou versão compatível. Depois, na pasta do projeto:
+- HTML usa caminhos relativos, funcionando no endereço de repositório GitHub Pages, mesmo com nome diferente.
+- Imagens carregadas em relação ao script, evitando URLs que apontem para a raiz incorreta do domínio.
+- Navegação em hash (`#/`) para que menus, produtos e atualização das páginas funcionem em hospedagem estática.
+- Publicação automática via GitHub Actions **sem npm nem compilação**.
+- Versão pronta para Pages pela branch `main` + pasta `/(root)`.
+- Tela inicial de contingência com WhatsApp, mesmo se o JavaScript estiver indisponível.
+- Gravação da lista protegida quando o navegador bloqueia armazenamento local, evitando erro que poderia desmontar a página.
 
-```bash
-npm ci
-npm run dev
-```
+### Arquivos
 
-Para gerar a versão de produção padrão:
+- `index.html`: página inicial.
+- `404.html`: fallback de páginas antigas do site.
+- `assets/`: JavaScript e CSS compilados.
+- `images/`: imagens otimizadas.
+- `.github/workflows/deploy.yml`: publicação automática.
 
-```bash
-npm run build
-```
-
-Para reproduzir **o build do GitHub Pages** localmente (Linux/macOS):
-
-```bash
-GITHUB_REPOSITORY=SEU_USUARIO/fabio-racoes-site GITHUB_PAGES=true VITE_GITHUB_PAGES=true npm run build:pages
-```
-
-O resultado aparece em `dist/`. A pasta `dist/` é gerada automaticamente e **não precisa** ser enviada para o GitHub.
-
-## Ajustes para GitHub Pages
-
-- Publicação automática via `.github/workflows/deploy.yml`.
-- Base de assets configurada automaticamente pelo nome do repositório (inclusive se for alterado).
-- Links internos usam `#/produtos`, `#/entrega` etc. **no GitHub Pages**, para funcionar mesmo após atualizar uma página diretamente. Na execução normal, as rotas continuam sem `#`.
-- Imagens utilizam `import.meta.env.BASE_URL`, funcionando nos dois ambientes.
-- `robots.txt` e `sitemap.xml` gerados com URLs absolutas da publicação do GitHub Pages.
-- Pastas pesadas/temporárias (`node_modules`, `dist`, logs, histórico `.git` da origem) e a configuração particular de hospedagem anterior foram removidas do pacote de entrega.
-
-## Funcionalidades do site
-
-- Home responsiva com foco em Pet & Horse.
-- Catálogo com busca, filtros por animal e tipo e página individual de produto.
-- Lista de consulta persistente com quantidade e exclusão.
-- Envio de consulta pelo WhatsApp.
-- Consulta de entrega por bairro ou CEP e contato pelo WhatsApp.
-- Páginas Entrega, Sobre e Contato.
-- Otimização básica de imagens WebP e metadados SEO.
-
-## Informações que ainda precisam ser confirmadas com a loja
-
-- Endereço completo, horário de atendimento e localização.
-- Marcas, produtos, tamanhos, fotos reais e preços.
-- Estoque e disponibilidade, áreas, prazos e condições de entrega.
-- Formas de pagamento, história institucional e disponibilidade da linha Piscina.
-- Domínio personalizado (se necessário) e informações legais antes do lançamento definitivo.
-
-O catálogo atual tem **itens demonstrativos**, e as imagens são ilustrativas. Não publique informações fictícias como se fossem confirmadas.
-
-## Arquivos para editar
-
-| Necessidade | Arquivo |
-|---|---|
-| Produtos e categorias | `src/data.js` |
-| WhatsApp, Instagram e páginas | `src/App.jsx` |
-| Aparência e layout | `src/styles.css` |
-| Metadados e dados estruturados | `index.html` |
-| Publicação no GitHub | `.github/workflows/deploy.yml` |
-| Configuração do Vite | `vite.config.js` |
-
-**Observação sobre domínio próprio:** o build foi preparado para o endereço padrão do GitHub Pages. Se conectar um domínio personalizado, será necessário ajustar a configuração `base`/SEO e roteamento conforme o novo endereço.
+**Atenção:** o catálogo mantém as informações ilustrativas e demonstrativas da versão original; fotos, estoque e preços reais não foram verificados. O presente pacote é a **versão para publicação** e não o código React editável.
