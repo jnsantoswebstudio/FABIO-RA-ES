@@ -1,0 +1,6 @@
+error when starting preview server:
+Error: Port 4175 is already in use
+    at httpServerStart (file:///C:/Users/Usu%C3%A1rio/Documents/Codex/2026-08-14/http-localhost-3000-http-localhost-3000/outputs/fabio-racoes-site/node_modules/vite/dist/node/chunks/node.js:11656:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async preview (file:///C:/Users/Usu%C3%A1rio/Documents/Codex/2026-08-14/http-localhost-3000-http-localhost-3000/outputs/fabio-racoes-site/node_modules/vite/dist/node/chunks/node.js:35778:2)
+    at async CAC.<anonymous> (file:///C:/Users/Usu%C3%A1rio/Documents/Codex/2026-08-14/http-localhost-3000-http-localhost-3000/outputs/fabio-racoes-site/node_modules/vite/dist/node/cli.js:807:18)
